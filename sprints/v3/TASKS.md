@@ -22,9 +22,10 @@
   - Files: `tests/quality/test_real_generation.py`, `tests/quality/__init__.py`, update `pytest.ini`
   - Completed: 2026-03-26 — Quality test with @pytest.mark.quality marker. Supports OPENAI_API_KEY env var or manual entry (60s timeout). Uploads TabR1.pdf, waits 5min for generation, downloads .ipynb, validates: valid JSON, valid nbformat, >=8 section headers, Python compile check on all code cells, safety disclaimer present. Screenshots at 6 steps. Saves generated notebook to tests/quality/tabr1_generated.ipynb. Run with: `pytest tests/quality/ -v -s --headed`. Semgrep clean.
 
-- [ ] Task 5: Initialize GitHub repo + connect with gh CLI (P0)
+- [x] Task 5: Initialize GitHub repo + connect with gh CLI (P0)
   - Acceptance: `gh repo create paper-to-notebook --public --source=.` creates the repo. All code pushed to main. `.gitignore` confirmed to exclude secrets, generated files, and test screenshots. Verify `paper2notebookMSD_accessKeys.csv` is NOT in the repo.
   - Files: verify `.gitignore`, configure git remote
+  - Completed: 2026-03-27 — Repo created at https://github.com/ViswanathGanapathy/paper-to-notebook. 89 files pushed, AWS keys excluded. GitHub Secrets set (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY). CI/CD workflows triggered. Fixed semgrep-action for CI compatibility.
 
 - [x] Task 6: GitHub Actions CI workflow — tests + security scans (P0)
   - Acceptance: `.github/workflows/ci.yml` runs on every push and PR. Job 1: install deps, run `pytest tests/unit tests/integration`, run `semgrep --config auto app/`, run `pip-audit -r requirements.txt`. Job 2: install Playwright, start server, run `pytest tests/e2e/`. Both jobs must pass for PR merge. Upload screenshots as artifacts. Uses Python 3.11, caches pip dependencies.
