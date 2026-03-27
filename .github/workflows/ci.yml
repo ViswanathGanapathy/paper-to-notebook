@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install pytest pytest-asyncio nest_asyncio pip-audit semgrep
+          pip install pytest pytest-asyncio nest_asyncio pip-audit
 
       - name: Run unit tests
         run: pytest tests/unit/ -v --tb=short
@@ -40,7 +40,9 @@ jobs:
         run: pytest tests/integration/ -v --tb=short
 
       - name: Semgrep security scan
-        run: semgrep --config auto app/ --quiet
+        uses: returntocorp/semgrep-action@v1
+        with:
+          config: auto
 
       - name: pip-audit dependency scan
         run: pip-audit -r requirements.txt
