@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# Python virtual environments
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Environment & secrets
+.env
+*.csv
+*accessKeys*
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+
+# Test artifacts
+tests/
+.pytest_cache/
+
+# Sprint docs
+sprints/
+
+# Generated notebooks (mounted as volume)
+generated/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files
+*.pdf

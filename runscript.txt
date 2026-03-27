@@ -1,0 +1,2 @@
+cd /home/pviswanath/msd-prd && source venv/bin/activate && uvicorn app.main:app --reload
+Then open http://127.0.0.1:8000 in your browser.

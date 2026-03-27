@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paper-to-Notebook</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="app">
+
+            <!-- Header -->
+            <header class="header">
+                <h1>Paper-to-Notebook</h1>
+                <p>Transform research papers into production-quality, runnable Google Colab notebooks — powered by reasoning AI.</p>
+            </header>
+
+            <!-- Phase 1: API Key -->
+            <section class="phase" id="phase-api-key" data-testid="phase-api-key">
+                <div class="api-key-card">
+                    <label for="api-key-input">OpenAI API Key</label>
+                    <div class="input-group">
+                        <input
+                            type="password"
+                            id="api-key-input"
+                            data-testid="api-key-input"
+                            placeholder="sk-..."
+                            autocomplete="off"
+                            spellcheck="false"
+                        >
+                        <button
+                            class="btn-primary"
+                            id="api-key-submit"
+                            data-testid="api-key-submit"
+                        >Continue</button>
+                    </div>
+                    <p class="api-key-hint">
+                        Your key is sent securely to our server for each generation request
+                        but is never stored or logged.
+                    </p>
+                    <p class="error-msg" id="api-key-error" data-testid="api-key-error"></p>
+                </div>
+            </section>
+
+            <!-- Phase 2: Upload -->
+            <section class="phase hidden" id="phase-upload" data-testid="phase-upload">
+                <div
+                    class="upload-zone"
+                    id="upload-zone"
+                    data-testid="upload-zone"
+                >
+                    <div class="upload-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m6.75 12-3-3m0 0-3 3m3-3v6m-1.5-15H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                    </div>
+                    <h3>Drop your research paper here</h3>
+                    <p>or click to browse — PDF files only</p>
+                    <input type="file" id="file-input" data-testid="file-input" accept=".pdf">
+                </div>
+
+                <div class="file-selected" id="file-selected" data-testid="file-selected">
+                    <span class="file-name" id="file-name"></span>
+                    <span class="file-size" id="file-size"></span>
+                </div>
+
+                <div class="generate-btn-wrap" id="generate-btn-wrap">
+                    <button
+                        class="btn-primary"
+                        id="generate-btn"
+                        data-testid="generate-btn"
+                        style="width: 100%;"
+                    >Generate Notebook</button>
+                </div>
+            </section>
+
+            <!-- History Panel (shown on upload phase) -->
+            <section class="history-panel hidden" id="history-panel" data-testid="history-panel">
+                <div class="history-card">
+                    <h4 class="history-title">Recent Notebooks</h4>
+                    <div class="history-list" id="history-list" data-testid="history-list"></div>
+                </div>
+            </section>
+
+            <!-- Phase 3: Results -->
+            <section class="phase hidden" id="phase-results" data-testid="phase-results">
+                <div class="results-card">
+                    <div class="progress-pulse" id="progress-pulse">
+                        <div class="pulse-bar"></div>
+                    </div>
+
+                    <div class="status-log" id="status-log" data-testid="status-log"></div>
+
+                    <div class="action-buttons" id="action-buttons">
+                        <a
+                            class="btn-download"
+                            id="download-btn"
+                            data-testid="download-btn"
+                            href="#"
+                            download
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                            Download .ipynb
+                        </a>
+                        <a
+                            class="btn-colab"
+                            id="colab-btn"
+                            data-testid="colab-btn"
+                            href="#"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+                            Open in Colab
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <span>Paper-to-Notebook &middot; Powered by gpt-5.4</span>
+            </footer>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

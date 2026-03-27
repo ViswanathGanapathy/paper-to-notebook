@@ -1,0 +1,638 @@
+/* Paper-to-Notebook — Design System inspired by arcprize.org */
+/* Dark theme, Inter font, clean spacing, gradient accents */
+
+/* Self-hosted Inter font — no external CDN dependency (SEC-018) */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('/static/fonts/Inter-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/static/fonts/Inter-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/static/fonts/Inter-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/static/fonts/Inter-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/static/fonts/Inter-Bold.woff2') format('woff2');
+}
+
+/* ── Reset & Base ────────────────────────────────────── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0A0A0A;
+    --surface: #141414;
+    --surface-hover: #1A1A1A;
+    --border: #262626;
+    --border-light: #333333;
+    --text-primary: #E8E8E8;
+    --text-secondary: #999999;
+    --text-muted: #666666;
+    --accent-start: #6C63FF;
+    --accent-end: #4ECDC4;
+    --accent-gradient: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    --error: #FF6B6B;
+    --success: #4ECDC4;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+/* ── Layout ──────────────────────────────────────────── */
+.container {
+    width: 100%;
+    max-width: 640px;
+    padding: 0 24px;
+    margin: 0 auto;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 48px 0;
+    gap: 48px;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.25rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 480px;
+}
+
+/* ── Phase Containers ────────────────────────────────── */
+.phase {
+    width: 100%;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: phaseIn 0.4s ease forwards;
+}
+
+.phase.hidden {
+    display: none;
+}
+
+.phase.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+@keyframes phaseIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Phase 1: API Key ────────────────────────────────── */
+.api-key-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    width: 100%;
+}
+
+.api-key-card label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.input-group input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.input-group input::placeholder {
+    color: var(--text-muted);
+}
+
+.input-group input:focus {
+    border-color: var(--accent-start);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+.btn-primary {
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px 28px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition);
+    white-space: nowrap;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.api-key-hint {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.api-key-hint a {
+    color: var(--accent-end);
+    text-decoration: none;
+}
+
+.api-key-hint a:hover {
+    text-decoration: underline;
+}
+
+/* ── Phase 2: Upload ─────────────────────────────────── */
+.upload-zone {
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 64px 32px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color var(--transition), background var(--transition);
+    width: 100%;
+}
+
+.upload-zone:hover {
+    border-color: var(--accent-start);
+    background: var(--surface-hover);
+    box-shadow: 0 0 20px rgba(108, 99, 255, 0.08);
+}
+
+.upload-zone.drag-over {
+    border-color: var(--accent-end);
+    background: var(--surface-hover);
+    box-shadow: 0 0 40px rgba(108, 99, 255, 0.2), 0 0 80px rgba(78, 205, 196, 0.08);
+    animation: glowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 40px rgba(108, 99, 255, 0.2), 0 0 80px rgba(78, 205, 196, 0.08); }
+    50% { box-shadow: 0 0 50px rgba(108, 99, 255, 0.3), 0 0 100px rgba(78, 205, 196, 0.12); }
+}
+
+.upload-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px;
+    opacity: 0.5;
+}
+
+.upload-icon svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--text-secondary);
+}
+
+.upload-zone h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.upload-zone p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.upload-zone input[type="file"] {
+    display: none;
+}
+
+.file-selected {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.file-selected.visible {
+    display: flex;
+}
+
+.file-selected .file-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-selected .file-size {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.generate-btn-wrap {
+    margin-top: 20px;
+    display: none;
+}
+
+.generate-btn-wrap.visible {
+    display: block;
+}
+
+/* ── Phase 3: Results (Status + Download) ────────────── */
+.results-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px;
+    width: 100%;
+}
+
+.status-log {
+    max-height: 360px;
+    overflow-y: auto;
+    margin-bottom: 24px;
+    padding-right: 8px;
+}
+
+.status-log::-webkit-scrollbar {
+    width: 4px;
+}
+
+.status-log::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+
+.status-entry {
+    display: flex;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    animation: fadeSlideIn 0.3s ease forwards;
+}
+
+.status-entry:last-child {
+    border-bottom: none;
+}
+
+.status-entry .status-icon {
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    color: var(--accent-end);
+}
+
+.status-entry .status-text {
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.status-entry.active .status-text {
+    color: var(--text-primary);
+}
+
+.status-entry.active .status-icon {
+    animation: dotPulse 1.2s ease-in-out infinite;
+    color: var(--accent-start);
+}
+
+@keyframes dotPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Progress pulse */
+.progress-pulse {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    display: none;
+}
+
+.progress-pulse.active {
+    display: block;
+}
+
+.progress-pulse .pulse-bar {
+    height: 100%;
+    width: 30%;
+    background: var(--accent-gradient);
+    border-radius: 2px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(400%); }
+}
+
+/* Download buttons */
+.action-buttons {
+    display: flex;
+    gap: 12px;
+    display: none;
+}
+
+.action-buttons.visible {
+    display: flex;
+    animation: fadeSlideIn 0.5s ease forwards;
+}
+
+.btn-download {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: var(--accent-gradient);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition);
+    text-decoration: none;
+}
+
+.btn-download:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-colab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 20px;
+    background: transparent;
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color var(--transition), transform var(--transition);
+    text-decoration: none;
+}
+
+.btn-colab:hover {
+    border-color: var(--accent-end);
+    transform: translateY(-1px);
+}
+
+/* ── Error state ─────────────────────────────────────── */
+.error-msg {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 8px;
+    display: none;
+}
+
+.error-msg.visible {
+    display: block;
+}
+
+/* ── History Panel ────────────────────────────────────── */
+.history-panel {
+    width: 100%;
+    transition: opacity var(--transition);
+}
+
+.history-panel.hidden {
+    display: none;
+}
+
+.history-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    width: 100%;
+}
+
+.history-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    transition: border-color var(--transition);
+}
+
+.history-item:hover {
+    border-color: var(--accent-start);
+}
+
+.history-item-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-primary);
+}
+
+.history-item-time {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    margin: 0 12px;
+    flex-shrink: 0;
+}
+
+.history-item-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.history-item-actions a {
+    color: var(--accent-end);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.history-item-actions a:hover {
+    text-decoration: underline;
+}
+
+/* ── Retry button ────────────────────────────────────── */
+#retry-btn {
+    animation: fadeSlideIn 0.3s ease forwards;
+}
+
+/* ── Selection ───────────────────────────────────────── */
+::selection {
+    background: rgba(108, 99, 255, 0.3);
+    color: var(--text-primary);
+}
+
+/* ── Footer ──────────────────────────────────────────── */
+.footer {
+    margin-top: auto;
+    padding: 24px 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.footer span {
+    opacity: 0.6;
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.75rem;
+    }
+
+    .header p {
+        font-size: 0.95rem;
+    }
+
+    .input-group {
+        flex-direction: column;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .upload-zone {
+        padding: 40px 20px;
+    }
+
+    .api-key-card,
+    .results-card {
+        padding: 24px;
+    }
+}

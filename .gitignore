@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+venv/
+.venv/
+
+# Environment & Secrets
+.env
+*.csv
+*accessKeys*
+*credentials*
+*.pem
+*.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Generated notebooks
+generated/
+
+# Test artifacts
+tests/screenshots/
+tests/quality/tabr1_generated.ipynb
+.pytest_cache/
+
+# Large test PDFs
+Tabr1.pdf
+
+# OS
+.DS_Store
+Thumbs.db
