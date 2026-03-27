@@ -31,6 +31,12 @@ tests/screenshots/
 tests/quality/tabr1_generated.ipynb
 .pytest_cache/
 
+# Terraform
+terraform/.terraform/
+terraform/terraform.tfstate*
+terraform/tfplan
+terraform/.terraform.lock.hcl
+
 # Large test PDFs
 Tabr1.pdf
 
