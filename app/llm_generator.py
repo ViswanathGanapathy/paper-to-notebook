@@ -11,7 +11,7 @@ from app.sanitizer import sanitize_paper_text
 logger = logging.getLogger(__name__)
 
 MODEL_NAME = "gpt-5.4"
-LLM_TIMEOUT_SECONDS = 120  # 2 minutes per API call (SEC-015)
+LLM_TIMEOUT_SECONDS = 300  # 5 minutes per API call — generation of 30-50 cells can take time
 
 # ── Prompts ──────────────────────────────────────────────
 

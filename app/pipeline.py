@@ -135,8 +135,17 @@ def _complete(file_id: str, title: str) -> dict[str, str]:
 
 def _sanitize_error(exc: Exception) -> str:
     """Return a user-safe error message without leaking internals."""
+    import asyncio
+    import traceback
+
+    # asyncio.TimeoutError has an empty str() — check type first
+    if isinstance(exc, (asyncio.TimeoutError, TimeoutError)):
+        return "Request timed out. The paper may be too complex. Please try a shorter paper or try again."
+
     msg = str(exc)
-    if "api_key" in msg.lower() or "authentication" in msg.lower():
+    exc_type = type(exc).__name__
+
+    if "api_key" in msg.lower() or "authentication" in msg.lower() or "401" in msg:
         return "Invalid or expired API key. Please check your OpenAI API key."
     if "rate" in msg.lower() and "limit" in msg.lower():
         return "OpenAI rate limit exceeded. Please wait a moment and try again."
@@ -144,8 +153,12 @@ def _sanitize_error(exc: Exception) -> str:
         return "Request timed out. The paper may be too long. Try a shorter paper."
     if "connection" in msg.lower() or "network" in msg.lower():
         return "Network error connecting to OpenAI. Please check your connection and try again."
-    # Generic fallback — never leak raw exception details (SEC-011)
-    logger.error("Unhandled pipeline error: %s", msg)
+    if "json" in msg.lower() or "decode" in msg.lower():
+        return "Failed to parse the AI response. Please try again."
+
+    # Generic fallback — log full details server-side, return safe message
+    logger.error("Unhandled pipeline error [%s]: %s", exc_type, msg)
+    logger.error("Traceback:\n%s", "".join(traceback.format_exception(type(exc), exc, exc.__traceback__)))
     return "An unexpected error occurred during processing. Please try again."
 
 
